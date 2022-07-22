@@ -1,13 +1,20 @@
 package com.piedpiper.graphqldemo;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Arrays;
 import java.util.List;
 
+@Entity
 public class Author {
-
+    @Id
     private String id;
     private String firstName;
     private String lastName;
+
+    public Author() {
+
+    }
 
     public Author(String id, String firstName, String lastName) {
         this.id = id;
