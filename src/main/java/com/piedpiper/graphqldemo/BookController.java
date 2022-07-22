@@ -14,10 +14,12 @@ public class BookController {
 
 
     private BookService bookService;
+    private AuthorService authorService;
 
     @Autowired
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, AuthorService authorService) {
         this.bookService = bookService;
+        this.authorService = authorService;
     }
     @QueryMapping
     public List<Book> allBooks() {
@@ -40,6 +42,6 @@ public class BookController {
 
     @SchemaMapping
     public Author author(Book book) {
-        return Author.getById(book.getAuthorId());
+        return authorService.getById(book.getAuthorId());
     }
 }

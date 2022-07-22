@@ -22,6 +22,7 @@ public class Author {
         this.lastName = lastName;
     }
 
+    /*
     private static List<Author> authors = Arrays.asList(
         new Author("author-1", "George", "Orwell"),
         new Author("author-2", "Ray", "Bradbury"),
@@ -31,7 +32,7 @@ public class Author {
     public static Author getById(String id) {
         return authors.stream().filter(author -> author.getId().equals(id)).findFirst().orElse(null);
     }
-
+    */
     public String getId() {
         return id;
     }

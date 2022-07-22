@@ -19,7 +19,7 @@ type Author {
 }
 
 type Mutation {
-    createBook(id: ID!, name: String!, pageCount: Int!, authorID: ID!): Book
+    createBook(id: ID!, name: String!, pageCount: Int!, authorID: ID!): Book!
     createAuthor(id: ID!, firstName: String!, lastName: String!): Author!
     #createBookAndAuthor(input: BookAndAuthorInput!): Book!
     #updateBook(id: ID!, name: String, pageCount: Int, author: Author): Book!
