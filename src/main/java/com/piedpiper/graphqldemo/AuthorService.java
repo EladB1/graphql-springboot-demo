@@ -35,4 +35,12 @@ public class AuthorService {
     public Author save(Author author) {
         return authorRepo.save(author);
     }
+
+    public Author deleteById(String id) throws IdNotFoundException {
+        Author author = getById(id);
+        if (author == null)
+            throw new IdNotFoundException("Could not find Author with ID " + id, "id");
+        authorRepo.deleteById(id);
+        return author;
+    }
 }

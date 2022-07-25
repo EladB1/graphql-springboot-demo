@@ -25,7 +25,7 @@ type Mutation {
     #updateBook(id: ID!, name: String, pageCount: Int, author: Author): Book!
     #updateAuthor(): Author!
     #deleteBook(): Book!
-    #deleteAuthor(): Author!
+    deleteAuthor(id: ID!): Author!
 }
 
 input BookAndAuthorInput {

@@ -34,4 +34,9 @@ public class AuthorController {
         return authorService.save(author);
     }
 
+    @MutationMapping
+    public Author deleteAuthor(@Argument String id) throws IdNotFoundException {
+        return authorService.deleteById(id);
+    }
+
 }
