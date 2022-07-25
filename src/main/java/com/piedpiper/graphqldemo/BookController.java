@@ -60,6 +60,15 @@ public class BookController {
         return bookService.deleteById(id);
     }
 
+    @MutationMapping
+    public Book createBookAndAuthor(@Argument BookAndAuthorInput input) {
+        // create book and author at the same time rather than doing it separately
+        Author author = new Author(input.getAuthorId(), input.getFirstName(), input.getLastName());
+        Book book = new Book(input.getBookId(), input.getBookName(), input.getPageCount(), input.getAuthorId());
+        authorService.save(author);
+        return bookService.save(book);
+    }
+
     @SchemaMapping
     public Author author(Book book) {
         return authorService.getById(book.getAuthorId());

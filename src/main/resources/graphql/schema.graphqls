@@ -21,7 +21,7 @@ type Author {
 type Mutation {
     createBook(id: ID!, name: String!, pageCount: Int!, authorID: ID!): Book!
     createAuthor(id: ID!, firstName: String!, lastName: String!): Author!
-    #createBookAndAuthor(input: BookAndAuthorInput!): Book!
+    createBookAndAuthor(input: BookAndAuthorInput!): Book!
     updateBook(id: ID!, name: String, pageCount: Int, authorID: ID): Book!
     updateAuthor(id: ID!, firstName: String, lastName: String): Author!
     deleteBook(id: ID!): Book!
@@ -29,10 +29,10 @@ type Mutation {
 }
 
 input BookAndAuthorInput {
-    book_id: ID!
-    book_name: String!
+    bookId: ID!
+    bookName: String!
     pageCount: Int!
-    author_id: ID!
+    authorId: ID!
     firstName: String!
     lastName: String!
 }
