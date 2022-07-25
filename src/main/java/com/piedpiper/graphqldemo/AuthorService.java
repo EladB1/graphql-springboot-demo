@@ -39,7 +39,7 @@ public class AuthorService {
     public Author deleteById(String id) throws IdNotFoundException {
         Author author = getById(id);
         if (author == null)
-            throw new IdNotFoundException("Could not find Author with ID " + id, "id");
+            throw new IdNotFoundException("Could not find Author with ID " + id);
         authorRepo.deleteById(id);
         return author;
     }

@@ -4,15 +4,12 @@ import graphql.ErrorClassification;
 import graphql.GraphQLError;
 import graphql.language.SourceLocation;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 public class IdNotFoundException extends RuntimeException implements GraphQLError {
-    private String invalidField;
-    public IdNotFoundException(String message, String invalidField) {
+
+    public IdNotFoundException(String message) {
         super(message);
-        this.invalidField = invalidField;
     }
 
     @Override
@@ -28,10 +25,5 @@ public class IdNotFoundException extends RuntimeException implements GraphQLErro
     @Override
     public ErrorClassification getErrorType() {
         return null;
-    }
-
-    @Override
-    public Map<String, Object> getExtensions() {
-        return Collections.singletonMap("invalidField", invalidField);
     }
 }
