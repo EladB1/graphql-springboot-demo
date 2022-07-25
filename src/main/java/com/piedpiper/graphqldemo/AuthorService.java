@@ -28,7 +28,7 @@ public class AuthorService {
     public Author getById(String id) {
         Optional<Author> author = authorRepo.findById(id);
         if (author.isEmpty())
-            return null;
+            throw new IdNotFoundException("Could not find author with ID '" + id + "'");
         return author.get();
     }
 

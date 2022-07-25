@@ -29,7 +29,7 @@ public class BookService {
     public Book getById(String id) {
         Optional<Book> book = bookRepo.findById(id);
         if (book.isEmpty())
-            return null;
+            throw new IdNotFoundException("Could not find book with ID '" + id + "'");
         return book.get();
     }
 
