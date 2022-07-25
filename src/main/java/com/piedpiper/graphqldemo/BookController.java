@@ -40,6 +40,26 @@ public class BookController {
         return bookService.save(book);
     }
 
+    @MutationMapping
+    public Book updateBook(@Argument String id, @Argument String name, @Argument int pageCount, @Argument String authorID) {
+        Book book = bookService.getById(id); // check if exists here, so we can still use bookService.save(book);
+        if (book == null)
+            throw new IdNotFoundException("Could not find book with ID '" + id + "'");
+        // TODO: validate author is valid
+        if (name != null && name != book.getName())
+            book.setName(name);
+        if (pageCount > 0 && pageCount != book.getPageCount())
+            book.setPageCount(pageCount);
+        if (authorID != null && authorID != book.getAuthorId())
+            book.setAuthorId(authorID);
+        return bookService.save(book);
+    }
+
+    @MutationMapping
+    public Book deleteBook(@Argument String id) {
+        return bookService.deleteById(id);
+    }
+
     @SchemaMapping
     public Author author(Book book) {
         return authorService.getById(book.getAuthorId());

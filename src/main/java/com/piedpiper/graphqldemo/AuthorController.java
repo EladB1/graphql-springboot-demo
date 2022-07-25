@@ -35,6 +35,18 @@ public class AuthorController {
     }
 
     @MutationMapping
+    public Author updateAuthor(@Argument String id, @Argument String firstName, @Argument String lastName) {
+        Author author = authorService.getById(id);
+        if (author == null)
+            throw new IdNotFoundException("Could not find Author with ID " + id); // throw Exception here instead of service to simplify
+        if (firstName != null && author.getFirstName() != firstName)
+            author.setFirstName(firstName);
+        if (lastName != null && author.getLastName() != lastName)
+            author.setLastName(lastName);
+        return authorService.save(author);
+    }
+
+    @MutationMapping
     public Author deleteAuthor(@Argument String id) throws IdNotFoundException {
         return authorService.deleteById(id);
     }

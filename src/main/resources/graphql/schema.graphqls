@@ -22,9 +22,9 @@ type Mutation {
     createBook(id: ID!, name: String!, pageCount: Int!, authorID: ID!): Book!
     createAuthor(id: ID!, firstName: String!, lastName: String!): Author!
     #createBookAndAuthor(input: BookAndAuthorInput!): Book!
-    #updateBook(id: ID!, name: String, pageCount: Int, author: Author): Book!
-    #updateAuthor(): Author!
-    #deleteBook(): Book!
+    updateBook(id: ID!, name: String, pageCount: Int, authorID: ID): Book!
+    updateAuthor(id: ID!, firstName: String, lastName: String): Author!
+    deleteBook(id: ID!): Book!
     deleteAuthor(id: ID!): Author!
 }
 

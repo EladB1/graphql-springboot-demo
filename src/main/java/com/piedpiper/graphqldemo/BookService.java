@@ -36,4 +36,12 @@ public class BookService {
     public Book save(Book book) {
         return bookRepo.save(book);
     }
+
+    public Book deleteById(String id) {
+        Book book = this.getById(id);
+        if (book == null)
+            throw new IdNotFoundException("Could not find book with ID '" + id + "'");
+        bookRepo.deleteById(id);
+        return book;
+    }
 }
