@@ -7,6 +7,7 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 
 @Controller
@@ -34,10 +35,22 @@ public class BookController {
     }
 
     @MutationMapping
-    public Book createBook(@Argument String id, @Argument String name, @Argument int pageCount, @Argument String authorID) {
-        Book book = new Book(id, name, pageCount, authorID);
-        //Book.pushToList(book);
-        return bookService.save(book);
+    public Book createBook(@Argument String id, @Argument String name, @Argument int pageCount, @Argument String authorID) throws Exception {
+        try {
+            Book existingBook = bookService.getById(id);
+            throw new Exception("Book with id '" + id + "' already exists"); // TODO: change this from generic exception class
+        }
+        catch (IdNotFoundException err) {
+            Book book = new Book(id, name, pageCount, authorID);
+            // try, catch block below is to make sure the authorID is already in the DB (somewhat of an ugly hack though)
+            try {
+                authorService.getById(authorID);
+            }
+            catch (IdNotFoundException authorErr) {
+                throw new IdNotFoundException(authorErr.getMessage());
+            }
+            return bookService.save(book);
+        }
     }
 
     @MutationMapping

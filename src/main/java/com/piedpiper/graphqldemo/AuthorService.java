@@ -40,7 +40,8 @@ public class AuthorService {
         Author author = getById(id);
         if (author == null)
             throw new IdNotFoundException("Could not find Author with ID " + id);
-        authorRepo.deleteById(id);
+        //authorRepo.deleteById(id);
+        authorRepo.cascadingDeleteAccount(id);
         return author;
     }
 }
