@@ -36,10 +36,8 @@ public class AuthorService {
         return authorRepo.save(author);
     }
 
-    public Author deleteById(String id) throws IdNotFoundException {
-        Author author = getById(id);
-        if (author == null)
-            throw new IdNotFoundException("Could not find Author with ID " + id);
+    public Author deleteById(String id) {
+        Author author = this.getById(id); // IdNotFoundException thrown by this method
         //authorRepo.deleteById(id);
         authorRepo.cascadingDeleteAccount(id);
         return author;

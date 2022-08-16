@@ -31,7 +31,7 @@ public class AuthorController {
     @MutationMapping
     public Author createAuthor(@Argument String id, @Argument String firstName, @Argument String lastName) throws Exception {
         try {
-            Author existingAuthor = authorService.getById(id);
+            Author existingAuthor = authorService.getById(id); // IdNotFoundException thrown by this method
             throw new Exception("Author with id: '" + id + "' already exists");
         }
         catch (IdNotFoundException err) {
@@ -42,9 +42,7 @@ public class AuthorController {
 
     @MutationMapping
     public Author updateAuthor(@Argument String id, @Argument String firstName, @Argument String lastName) {
-        Author author = authorService.getById(id);
-        if (author == null)
-            throw new IdNotFoundException("Could not find Author with ID " + id); // throw Exception here instead of service to simplify
+        Author author = authorService.getById(id); // IdNotFoundException thrown by this method
         if (firstName != null && author.getFirstName() != firstName)
             author.setFirstName(firstName);
         if (lastName != null && author.getLastName() != lastName)
@@ -54,7 +52,10 @@ public class AuthorController {
 
     @MutationMapping
     public Author deleteAuthor(@Argument String id) throws IdNotFoundException {
-        return authorService.deleteById(id);
+        Author deleted = authorService.deleteById(id);
+        if (deleted == null)
+            throw new IdNotFoundException("Could not find author with ID '" + id + "'");
+        return deleted;
     }
 
 }
