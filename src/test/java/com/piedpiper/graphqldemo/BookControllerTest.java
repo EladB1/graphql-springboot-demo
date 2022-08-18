@@ -1,7 +1,5 @@
 package com.piedpiper.graphqldemo;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.graphql.GraphQlTest;
@@ -12,9 +10,9 @@ import java.util.List;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
 
 @GraphQlTest(BookController.class)
 public class BookControllerTest {
@@ -121,7 +119,7 @@ public class BookControllerTest {
     }
 
     @Test
-    void getById() throws Exception {
+    void getById() {
         Book book = new Book("book-4", "Art of War", 199, "author-2");
         //Author author = new Author("author-2", "Sun", "Tzu");
         when(bookService.getById(any(String.class))).thenReturn(book);
@@ -146,7 +144,7 @@ public class BookControllerTest {
         localTester
                 .document(createMutation)
                 .variable("id", "book-12")
-                .variable("name", "Crime and Punishement")
+                .variable("name", "Crime and Punishment")
                 .variable("pageCount", 373)
                 .variable("authorID", "author-8")
                 .execute()

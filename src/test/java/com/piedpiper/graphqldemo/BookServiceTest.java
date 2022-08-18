@@ -44,15 +44,13 @@ public class BookServiceTest {
         );
         when(bookRepository.findAll()).thenReturn(books);
         List<Book> results = bookService.getBookList();
-        assertEquals(2, books.size());
+        assertEquals(2, results.size());
     }
 
     @Test
     void getByIdNotFound() {
         doThrow(new IdNotFoundException("Could not find book with ID 'book-4'")).when(bookRepository).findById(any(String.class));
-        assertThrows(IdNotFoundException.class, () -> {
-            bookService.getById("book-4");
-        });
+        assertThrows(IdNotFoundException.class, () -> bookService.getById("book-4"));
     }
 
     @Test
@@ -80,9 +78,7 @@ public class BookServiceTest {
     @Test
     void deleteByIdNotFound() {
         doThrow(new IdNotFoundException("Could not find book with ID 'book-10'")).when(bookRepository).findById(any(String.class));
-        assertThrows(IdNotFoundException.class, () -> {
-            bookService.deleteById("book-10");
-        });
+        assertThrows(IdNotFoundException.class, () -> bookService.deleteById("book-10"));
     }
 
     @Test

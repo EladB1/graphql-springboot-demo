@@ -2,8 +2,6 @@ package com.piedpiper.graphqldemo;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.Arrays;
-import java.util.List;
 
 @Entity
 public class Book {

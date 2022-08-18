@@ -51,9 +51,7 @@ public class AuthorServiceTest {
     @Test
     void getByIdNoResult() {
         doThrow(new IdNotFoundException("Could not find Author with ID 'author-3'")).when(authorRepository).findById(any(String.class));
-        assertThrows(IdNotFoundException.class, () -> {
-            Author author = authorService.getById("author-3");
-        });
+        assertThrows(IdNotFoundException.class, () -> authorService.getById("author-3"));
     }
 
     @Test
@@ -78,9 +76,7 @@ public class AuthorServiceTest {
     @Test
     void deleteByIdNotFound() {
         doThrow(new IdNotFoundException("Could not find author with ID 'author-25'")).when(authorRepository).findById(any(String.class));
-        assertThrows(IdNotFoundException.class, () -> {
-            authorService.deleteById("author-25");
-        });
+        assertThrows(IdNotFoundException.class, () -> authorService.deleteById("author-25"));
     }
 
     @Test

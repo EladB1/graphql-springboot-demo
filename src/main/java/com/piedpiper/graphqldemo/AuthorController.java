@@ -31,7 +31,7 @@ public class AuthorController {
     @MutationMapping
     public Author createAuthor(@Argument String id, @Argument String firstName, @Argument String lastName) throws ExistingResourceException {
         try {
-            Author existingAuthor = authorService.getById(id); // IdNotFoundException thrown by this method
+            authorService.getById(id); // IdNotFoundException thrown by this method
             throw new ExistingResourceException("Author with id: '" + id + "' already exists");
         }
         catch (IdNotFoundException err) {
@@ -43,9 +43,9 @@ public class AuthorController {
     @MutationMapping
     public Author updateAuthor(@Argument String id, @Argument String firstName, @Argument String lastName) {
         Author author = authorService.getById(id); // IdNotFoundException thrown by this method
-        if (firstName != null && author.getFirstName() != firstName)
+        if (firstName != null && !author.getFirstName().equals(firstName))
             author.setFirstName(firstName);
-        if (lastName != null && author.getLastName() != lastName)
+        if (lastName != null && !author.getLastName().equals(lastName))
             author.setLastName(lastName);
         return authorService.save(author);
     }
