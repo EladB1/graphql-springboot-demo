@@ -29,10 +29,10 @@ public class AuthorController {
     }
 
     @MutationMapping
-    public Author createAuthor(@Argument String id, @Argument String firstName, @Argument String lastName) throws Exception {
+    public Author createAuthor(@Argument String id, @Argument String firstName, @Argument String lastName) throws ExistingResourceException {
         try {
             Author existingAuthor = authorService.getById(id); // IdNotFoundException thrown by this method
-            throw new Exception("Author with id: '" + id + "' already exists");
+            throw new ExistingResourceException("Author with id: '" + id + "' already exists");
         }
         catch (IdNotFoundException err) {
             Author author = new Author(id, firstName, lastName);

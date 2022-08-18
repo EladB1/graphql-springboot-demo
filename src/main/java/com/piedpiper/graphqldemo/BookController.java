@@ -35,10 +35,10 @@ public class BookController {
     }
 
     @MutationMapping
-    public Book createBook(@Argument String id, @Argument String name, @Argument int pageCount, @Argument String authorID) throws Exception {
+    public Book createBook(@Argument String id, @Argument String name, @Argument int pageCount, @Argument String authorID) throws ExistingResourceException {
         try {
             Book existingBook = bookService.getById(id);
-            throw new Exception("Book with id '" + id + "' already exists"); // TODO: change this from generic exception class
+            throw new ExistingResourceException("Book with id '" + id + "' already exists");
         }
         catch (IdNotFoundException err) {
             Book book = new Book(id, name, pageCount, authorID);
