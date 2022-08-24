@@ -63,8 +63,16 @@ public class BookController {
             book.setName(name);
         if (pageCount > 0 && pageCount != book.getPageCount())
             book.setPageCount(pageCount);
-        if (authorID != null && authorID != book.getAuthorId())
-            book.setAuthorId(authorID);
+        if (authorID != null && authorID != book.getAuthorId()) {
+            // try, catch block below is to make sure the authorID is already in the DB (somewhat of an ugly hack though)
+            try {
+                authorService.getById(authorID);
+                book.setAuthorId(authorID);
+            }
+            catch (IdNotFoundException authorErr) {
+                throw new IdNotFoundException(authorErr.getMessage()); // need this so it throws an error to the frontend
+            }
+        }
         return bookService.save(book);
     }
 
